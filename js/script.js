@@ -16,15 +16,19 @@ strVideos = '[{imgSrc:"",videoName:"", videoSrc:"", artistName:""},{imgSrc:"",vi
         var titulo;
         var artista;
         var imagen;
+        var divTexto;
         nuevoLi = document.createElement("li");
         titulo = document.createElement("h2");
         artista = document.createElement("h4");
         imagen = document.createElement("img");
+        divTexto = document.createElement("div")
 
         contenido.appendChild(nuevoLi);
-        nuevoLi.appendChild(titulo);
-        nuevoLi.appendChild(artista);
         nuevoLi.appendChild(imagen);
+        nuevoLi.appendChild(divTexto);
+        divTexto.appendChild(titulo);
+        divTexto.appendChild(artista);
+        
 
         titulo.append(cancion.songName);
         artista.append(cancion.artistName);
