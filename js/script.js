@@ -1,5 +1,5 @@
 var canciones;
-strCanciones = '[{"imgSrc":"","songName":"Torero", "audioSrc":"", "artistName":"Chayanne"},{"imgSrc":"","songName":"Torero", "audioSrc":"", "artistName":"Chayanne"},{"imgSrc":"","songName":"Torero", "audioSrc":"", "artistName":"Chayanne"}]';
+strCanciones = '[{"imgSrc":"","songName":"Cantina Rag", "audioSrc":"media/songs/Jackson F. Smith - Cantina Rag.mp3", "artistName":"Jackson F.Smith"},{"imgSrc":"","songName":"BuckBreak", "audioSrc":"media/songs/Ken Hamm - Buckbreak.mp3", "artistName":"Ken Hamm"},{"imgSrc":"","songName":"Little Grass Shack", "audioSrc":"media/songs/Voodoo Suite - Little Grass Shack.mp3", "artistName":"Voodoo Suite"}]';
 
 canciones = JSON.parse(strCanciones);
 var videos;

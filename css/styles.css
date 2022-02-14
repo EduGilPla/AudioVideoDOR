@@ -78,6 +78,7 @@ header a:hover {
 
 #divContenido #contenido {
   list-style-type: none;
+  padding: 10px;
 }
 
 #divContenido #contenido li {
