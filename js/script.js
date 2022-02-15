@@ -45,6 +45,9 @@ function cambioAudio() {
         artista.append(cancion.artistName);
         imagen.setAttribute("src",cancion.imgSrc);
 
+        //añadimos el atributo name en el li para poder sacar el nombre de la canción que nos interese al darle click
+        nuevoLi.setAttribute("name", cancion.songName)
+
         //y ponemos el event listener para poner la canción
         nuevoLi.addEventListener('click',empezarReproduccionCancion);
     });
@@ -90,10 +93,32 @@ function vaciarUL() {
     for (var iteraciones = 0; iteraciones < numHijos; iteraciones++){
         contenido.lastChild.remove();
     }
-
-
-    
 }
 function empezarReproduccionCancion(event) {
     //añadiríamos aquí dentro la función para poner la cancion
+    var parent = event.target.parentElement;
+
+    var encontradoLi = false;
+
+    //tenemos que encontrar el elemento Li para poder coger el atributo name, pero el target del evento no es el li sino sus hijos, así que vamos subiendo hasta encontrarlo:
+    while(!encontradoLi) {
+        if(parent.tagName == "LI") {
+            encontradoLi = true;
+        }
+        else {
+            parent = parent.parentElement;
+        }
+    }
+
+    var nombreCancion = parent.getAttribute("name");
+
+    var cancionJSON = canciones.filter(element => element.songName == nombreCancion);
+
+    var srcCancion = cancionJSON[0].audioSrc;
+
+    var tagAudio = document.getElementById("tagAudio")
+
+    tagAudio.setAttribute("src",srcCancion);
+
+    //canciones.filter(element => element.songName == nombreCancion);
 }
