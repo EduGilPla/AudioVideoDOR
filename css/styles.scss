@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0px;
 }
+@import url("../css/_reproductor.scss");
 html {
     height: 100%;
 }
@@ -42,6 +43,8 @@ header {
     grid-row: 2 / 3;
     height: 100%;
     box-shadow: 5px 5px 10px black;
+    padding: 1rem;
+    
 }
 
 #divContenido {
@@ -77,3 +80,61 @@ header {
     }
 }
 
+
+// esto es pa probar
+/* Player */
+.player {
+    min-width: 320px;
+    background-image: linear-gradient(black, gray);
+    border-radius: 1rem;
+    padding: 2rem;
+    color: white;
+    box-shadow: 2px 2px 3px black;
+}
+
+/* Title */
+.title {
+    margin-top: 0;
+    text-align: center;
+    padding-bottom:1rem;
+}
+
+/* Cover */
+.img {
+    width: 140px;
+    height: auto;
+    border-radius: .3rem;
+    display: block;
+    margin: 0 auto 1rem auto;
+}
+
+/* Progress */
+.barra-container {
+    height: .6rem;
+    background-color: lightgray;
+    margin-bottom: 1rem;
+}
+
+.barra {
+    background-color: goldenrod;
+    width: 0;
+    height: 100%;
+}
+
+/* Controls */
+.controls {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+}
+
+.controls button {
+    background-color: transparent;
+    border: none;
+}
+
+.controls i {
+    font-size: 1.7rem;
+    color: white;
+}
+//prueba
