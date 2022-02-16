@@ -11,15 +11,19 @@ videos = JSON.parse(strVideos);
 (function () {
     var linkAudio = document.getElementById("linkAudio");
     var linkVideo = document.getElementById("linkVideo");
+    var botonRetr = document.getElementById("AtrasarVideo");
     var botonAnterior = document.getElementById("VideoAnterior");
     var botonPausa = document.getElementById("PausePlay");
     var botonSiguiente =  document.getElementById("VideoSiguiente");
+    var botonAdelantar = document.getElementById("AdelantarVideo");
 
     linkAudio.addEventListener('click', cambioAudio);
     linkVideo.addEventListener('click',cambioVideo);
+    botonRetr.addEventListener('click',atrasaVideo)
     botonAnterior.addEventListener('click',videoAnterior)
     botonPausa.addEventListener('click',playPause);
     botonSiguiente.addEventListener('click',videoSiguiente);
+    botonAdelantar.addEventListener('click',adelantaVideo);
 
     cambioAudio();
 })();
@@ -128,6 +132,10 @@ function empezarReproduccionCancion(event) {
 // Funciones de reproductor de vídeo
 var videoPagina = document.getElementById("tagVideo");
 
+function atrasaVideo() {
+    videoPagina.currentTime = videoPagina.currentTime - 5;
+}
+
 function playPause() {
     if(videoPagina.paused) {
         videoPagina.play();
@@ -151,6 +159,10 @@ function videoSiguiente() {
     if (videos[indexVideoActual+1] != undefined) {
         videoPagina.setAttribute("src",videos[indexVideoActual+1].videoSrc);
     }
+}
+
+function adelantaVideo() {
+    videoPagina.currentTime = videoPagina.currentTime + 5;
 }
 
 
