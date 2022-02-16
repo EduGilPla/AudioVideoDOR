@@ -1,3 +1,4 @@
+
 var canciones;
 strCanciones = '[{"imgSrc":"media/images/1.jpg","songName":"Cantina Rag", "audioSrc":"media/songs/Jackson F. Smith - Cantina Rag.mp3", "artistName":"Jackson F.Smith"},{"imgSrc":"media/images/2.jpg","songName":"BuckBreak", "audioSrc":"media/songs/Ken Hamm - Buckbreak.mp3", "artistName":"Ken Hamm"},{"imgSrc":"media/images/3.jpg","songName":"Little Grass Shack", "audioSrc":"media/songs/Voodoo Suite - Little Grass Shack.mp3", "artistName":"Voodoo Suite"}]';
 
@@ -151,3 +152,45 @@ function videoSiguiente() {
         videoPagina.setAttribute("src",videos[indexVideoActual+1].videoSrc);
     }
 }
+
+
+// // Escuchar el elemento AUDIO
+// audio.addEventListener("timeupdate", updateProgress)
+
+// // Escuchar clicks en los controles
+// play.addEventListener("click", () => {
+//     if (audio.paused) {
+//         playSong()   
+//     } else {
+//         pauseSong()
+//     }
+// })
+
+// next.addEventListener("click", () => nextSong())
+// prev.addEventListener("click", () => prevSong())
+// //
+
+
+// //actualizar controles
+// function updateControls() {
+//     if (audio.paused) {
+//         play.classList.remove("fa-pause")
+//         play.classList.add("fa-play")
+//     } else {
+//         play.classList.add("fa-pause")
+//         play.classList.remove("fa-play")
+//     }
+// }
+// // Reproducir canción
+// function playSong() {
+//     if (actualSong !== null) {
+//         audio.play()
+//         updateControls()
+//     }
+// }
+
+// // Pausar canción
+// function pauseSong() {
+//     audio.pause()
+//     updateControls()
+// }
