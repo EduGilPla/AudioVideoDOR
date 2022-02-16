@@ -10,9 +10,16 @@ videos = JSON.parse(strVideos);
 (function () {
     var linkAudio = document.getElementById("linkAudio");
     var linkVideo = document.getElementById("linkVideo");
+    var botonAnterior = document.getElementById("VideoAnterior");
+    var botonPausa = document.getElementById("PausePlay");
+    var botonSiguiente =  document.getElementById("VideoSiguiente");
+
     linkAudio.addEventListener('click', cambioAudio);
     linkVideo.addEventListener('click',cambioVideo);
-    
+    botonAnterior.addEventListener('click',videoAnterior)
+    botonPausa.addEventListener('click',playPause);
+    botonSiguiente.addEventListener('click',videoSiguiente);
+
     cambioAudio();
 })();
 
@@ -109,16 +116,38 @@ function empezarReproduccionCancion(event) {
             parent = parent.parentElement;
         }
     }
-
+    //conseguimos el nombre de la cancion, la buscamos en el json, conseguimos su src y lo añadimos a la
     var nombreCancion = parent.getAttribute("name");
-
     var cancionJSON = canciones.filter(element => element.songName == nombreCancion);
-
     var srcCancion = cancionJSON[0].audioSrc;
-
-    var tagAudio = document.getElementById("tagAudio")
-
+    var tagAudio = document.getElementById("tagAudio");
     tagAudio.setAttribute("src",srcCancion);
+}
 
-    //canciones.filter(element => element.songName == nombreCancion);
+// Funciones de reproductor de vídeo
+var videoPagina = document.getElementById("tagVideo");
+
+function playPause() {
+    if(videoPagina.paused) {
+        videoPagina.play();
+    }
+    else {
+        videoPagina.pause();
+    }
+}
+
+function videoAnterior() {
+    var indexVideoActual = videos.findIndex(element => element.videoSrc == videoPagina.getAttribute("src"));
+
+    if (indexVideoActual != 0) {
+        videoPagina.src = videos[indexVideoActual-1].videoSrc;
+    }
+}
+
+function videoSiguiente() {
+    var indexVideoActual = videos.findIndex(element => element.videoSrc == videoPagina.getAttribute("src"));
+
+    if (videos[indexVideoActual+1] != undefined) {
+        videoPagina.setAttribute("src",videos[indexVideoActual+1].videoSrc);
+    }
 }
