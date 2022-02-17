@@ -19,7 +19,9 @@ const DOM = {
     optionSelectEnglish: document.getElementById("loadEnglish"),
     optionSelectEspañol: document.getElementById("loadEspañol"),
     opcionesSubtitulos: document.getElementById("opcionesSubtitulos"),
-    nombreVideo: document.getElementById("nombreVideo")
+    nombreVideo: document.getElementById("nombreVideo"),
+    tagImgCancion: document.getElementById("imgCancion"),
+    tagTituloCancion: document.getElementById("title")
 }
 
 var canciones;
@@ -312,10 +314,25 @@ function playPause() {
 }
 
 function videoAnterior() {
+    
     var indexVideoActual = videos.findIndex(element => element.videoSrc == DOM.videoPagina.getAttribute("src"));
 
     if (indexVideoActual != 0) {
+        hideTracks();
         DOM.videoPagina.src = videos[indexVideoActual - 1].videoSrc;
+        DOM.nombreVideo.innerHTML = videos[indexVideoActual - 1].videoName;
+        if (tagVideo.play) {
+            DOM.tagVideo.pause();
+            DOM.botonPlayVideo.classList.add("fa-play");
+            DOM.botonPlayVideo.classList.remove("fa-pause");
+        }
+        if(videos[indexVideoActual - 1].hasSubtitles == "yes") {
+            DOM.opcionesSubtitulos.setAttribute("style","display:block");
+            DOM.opcionesSubtitulos.value = "none";
+        }
+        else {
+            DOM.opcionesSubtitulos.setAttribute("style","display:none");
+        }
     }
 }
 
@@ -323,7 +340,21 @@ function videoSiguiente() {
     var indexVideoActual = videos.findIndex(element => element.videoSrc == DOM.videoPagina.getAttribute("src"));
 
     if (videos[indexVideoActual + 1] != undefined) {
+        hideTracks();
         DOM.videoPagina.setAttribute("src", videos[indexVideoActual + 1].videoSrc);
+        DOM.nombreVideo.innerHTML = videos[indexVideoActual + 1].videoName;
+        if (tagVideo.play) {
+            DOM.tagVideo.pause();
+            DOM.botonPlayVideo.classList.add("fa-play");
+            DOM.botonPlayVideo.classList.remove("fa-pause");
+        }
+        if(videos[indexVideoActual + 1].hasSubtitles == "yes") {
+            DOM.opcionesSubtitulos.setAttribute("style","display:block");
+            DOM.opcionesSubtitulos.value = "none";
+        }
+        else {
+            DOM.opcionesSubtitulos.setAttribute("style","display:none");
+        }
     }
 }
 
@@ -350,24 +381,30 @@ function PlayPause() {
 
 function prev() {
     var indexCancionesActual = canciones.findIndex(element => element.audioSrc == DOM.tagAudio.getAttribute("src"));
-    var tagImg = document.getElementById("imgCancion");
-    var tagTitulo = document.getElementById("title");
     
     if (indexCancionesActual != 0) {
         DOM.tagAudio.setAttribute("src", canciones[indexCancionesActual - 1].audioSrc);
-        tagImg.setAttribute("src",canciones[indexCancionesActual - 1].imgSrc);
-        tagTitulo.innerHTML = canciones[indexCancionesActual - 1].songName;
+        DOM.tagImgCancion.setAttribute("src",canciones[indexCancionesActual - 1].imgSrc);
+        DOM.tagTituloCancion.innerHTML = canciones[indexCancionesActual - 1].songName;
+
+        if (tagAudio.play) {
+            DOM.botonPlayAudio.classList.add("fa-play");
+            DOM.botonPlayAudio.classList.remove("fa-pause");
+        }
     }
 }
 
 function next() {
     var indexCancionesActual = canciones.findIndex(element => element.audioSrc == DOM.tagAudio.getAttribute("src"));
-    var tagImg = document.getElementById("imgCancion");
-    var tagTitulo = document.getElementById("title");
+    
     if (canciones[indexCancionesActual + 1] != undefined) {
         DOM.tagAudio.setAttribute("src", canciones[indexCancionesActual + 1].audioSrc);
-        tagImg.setAttribute("src",canciones[indexCancionesActual + 1].imgSrc);
-        tagTitulo.innerHTML = canciones[indexCancionesActual + 1].songName;
-        
+        DOM.tagImgCancion.setAttribute("src",canciones[indexCancionesActual + 1].imgSrc);
+        DOM.tagTituloCancion.innerHTML = canciones[indexCancionesActual + 1].songName;
+
+        if (tagAudio.play) {
+            DOM.botonPlayAudio.classList.add("fa-play");
+            DOM.botonPlayAudio.classList.remove("fa-pause");
+        }
     }
 }
