@@ -4,7 +4,7 @@ strCanciones = '[{"imgSrc":"media/images/1.jpg","songName":"Cantina Rag", "audio
 
 canciones = JSON.parse(strCanciones);
 var videos;
-strVideos = '[{"imgSrc":"media/images/Ink.png","videoName":"Ink", "videoSrc":"media/videos/Ink - 67358.mp4", "artistName":"Pixabay"},{"imgSrc":"media/images/Road.png","videoName":"Road", "videoSrc":"media/videos/Road - 84970.mp4", "artistName":"Pixabay"},{"imgSrc":"media/images/Sea.png","videoName":"Sea", "videoSrc":"media/videos/Sea - 4006.mp4", "artistName":"Pixabay"}]';
+strVideos = '[{"imgSrc":"media/images/Ink.png","videoName":"Ink", "videoSrc":"media/videos/Ink - 67358.mp4", "artistName":"Pixabay","hasSubtitles":"no"},{"imgSrc":"media/images/Road.png","videoName":"Road", "videoSrc":"media/videos/Road - 84970.mp4", "artistName":"Pixabay","hasSubtitles":"no"},{"imgSrc":"media/images/Sea.png","videoName":"Sea", "videoSrc":"media/videos/Sea - 4006.mp4", "artistName":"Pixabay","hasSubtitles":"no"},{"imgSrc":"media/images/Ted.png","videoName":"Ted Talk", "videoSrc":"media/videos/Ted Talk.mp4", "artistName":"TED","hasSubtitles":"yes"}]';
 videos = JSON.parse(strVideos);
 
 // función IIFE para cargar cosas desde el inicio de la página, al entrar cargamos las canciones por defecto
@@ -63,6 +63,7 @@ function cambioAudio() {
         //y ponemos el event listener para poner la canción
         nuevoLi.addEventListener('click',empezarReproduccionCancion);
     });
+    togglePlayers("audio");
 }
 
 function cambioVideo() {
@@ -95,6 +96,20 @@ function cambioVideo() {
         imagen.setAttribute("src",video.imgSrc);
 
     });
+    togglePlayers("video");
+}
+function togglePlayers(option) {
+    var audioPlayer = document.getElementsByClassName("player")[0];
+    var videoPlayer = document.getElementsByClassName("contenedorVideo")[0];
+
+    if(option == "video") {
+        audioPlayer.style = "display: none";
+        videoPlayer.style = "";
+    }
+    if(option == "audio") {
+        audioPlayer.style = "";
+        videoPlayer.style = "display: none";
+    }  
 }
 
 function vaciarUL() {
