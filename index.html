@@ -24,7 +24,7 @@
             <h1 class="title" id="title"> Prueba</h1>
 
             <!-- img -->
-            <img src="/AudioVideoDOR/imagenes/Captura.PNG" alt="" class="img" id="img">
+            <img src="" alt="" class="img" id="img">
 
             <!-- audio -->
             <audio src="" id="tagAudio"></audio>
@@ -39,8 +39,8 @@
                 <button class="prev">
                     <i id="prev" class="fas fa-backward"></i>
                 </button>
-                <button class="play">
-                    <i id="play" class="fas fa-play"></i>
+                <button class="PlayPause">
+                    <i id="PlayPause" class="fas fa-play"></i>
                 </button>
                 <button class="next">
                     <i id="next" class="fas fa-forward"></i>
@@ -48,12 +48,25 @@
             </section>
         </main>
         <div class="contenedorVideo">
-            <video src="media/videos/Ink - 67358.mp4" id="tagVideo" width="400" height="250"></video>
-            <button id="Retr15Sec"></button>
-            <button id="VideoAnterior">Anterior</button>
-            <button id="PausePlay">Pausa/Play</button>
-            <button id="VideoSiguiente">Siguiente</button>
-            <button id="Av15Sec"></button>
+            <video src="media/videos/Ink - 67358.mp4" id="tagVideo" height="250"></video>
+            <section class="controlsVideo">
+                <button id="AtrasarVideo">
+                    <i class="fas fa-undo"></i>
+                </button>
+                <button id="VideoAnterior">
+                    <i class="fas fa-backward"></i>
+                </button>
+                <button id="PausePlay">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button id="VideoSiguiente">
+                    <i class="fas fa-forward"></i>
+                </button>
+                <button id="AdelantarVideo">
+                    <i class="fas fa-redo"></i>
+                </button>
+            </section>
+            
         </div>  
     </nav>
 
