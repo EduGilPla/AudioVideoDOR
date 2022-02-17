@@ -18,7 +18,8 @@ const DOM = {
     tagVideo: document.getElementById("tagVideo"),
     optionSelectEnglish: document.getElementById("loadEnglish"),
     optionSelectEspañol: document.getElementById("loadEspañol"),
-    opcionesSubtitulos: document.getElementById("opcionesSubtitulos")
+    opcionesSubtitulos: document.getElementById("opcionesSubtitulos"),
+    nombreVideo: document.getElementById("nombreVideo")
 }
 
 var canciones;
@@ -244,6 +245,11 @@ function empezarReproduccionCancion(event) {
     tagImg.setAttribute("src",srcImagen);
     var tagTitulo = document.getElementById("title");
     tagTitulo.innerHTML = nombreCancion;
+
+    if (tagAudio.play) {
+        DOM.botonPlayAudio.classList.add("fa-play");
+        DOM.botonPlayAudio.classList.remove("fa-pause");
+    }
 }
 
 function empezarReproduccionVideo(event) {
@@ -265,10 +271,18 @@ function empezarReproduccionVideo(event) {
     var nombreVideo = parent.getAttribute("name");
     var videoJSON = videos.filter(element => element.videoName == nombreVideo);
     var srcVideo = videoJSON[0].videoSrc;
-    var tagVideo = document.getElementById("tagVideo");
-    tagVideo.setAttribute("src", srcVideo);
+    DOM.tagVideo.setAttribute("src", srcVideo);
+    DOM.nombreVideo.innerHTML = videoJSON[0].videoName;
+    //cambiamos el botón play
+    if (tagVideo.play) {
+        DOM.tagVideo.pause();
+        DOM.botonPlayVideo.classList.add("fa-play");
+        DOM.botonPlayVideo.classList.remove("fa-pause");
+    }
+    hideTracks();
     if(videoJSON[0].hasSubtitles == "yes") {
         DOM.opcionesSubtitulos.setAttribute("style","display:block");
+        DOM.opcionesSubtitulos.value = "none";
     }
     else {
         DOM.opcionesSubtitulos.setAttribute("style","display:none");
