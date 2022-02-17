@@ -97,6 +97,8 @@ header {
     video {
         width: 400px;
         z-index: 0;
+        border: 2px solid black;
+        padding: 0;
         &:hover + section{
             transition: 0.5s;
             opacity: 1;  
@@ -109,7 +111,7 @@ header {
         display: flex;
         justify-content: space-evenly;
         position: relative;
-        top: -43px;
+        top: -32px;
         opacity: 0;
         transition: 3s;
         background-color: rgba($color: black, $alpha: 0.4);

@@ -150,6 +150,8 @@ header a:hover {
 .contenedorVideo video {
   width: 400px;
   z-index: 0;
+  border: 2px solid black;
+  padding: 0;
 }
 
 .contenedorVideo video:hover + section {
@@ -169,7 +171,7 @@ header a:hover {
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
   position: relative;
-  top: -43px;
+  top: -32px;
   opacity: 0;
   -webkit-transition: 3s;
   transition: 3s;

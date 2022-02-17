@@ -1,3 +1,23 @@
+const DOM = {
+    linkAudio: document.getElementById("linkAudio"),
+    linkVideo: document.getElementById("linkVideo"),
+    botonRetr: document.getElementById("AtrasarVideo"),
+    botonAnterior: document.getElementById("VideoAnterior"),
+    botonPausa: document.getElementById("PausePlay"),
+    botonSiguiente: document.getElementById("VideoSiguiente"),
+    botonAdelantar: document.getElementById("AdelantarVideo"),
+    botonPrev: document.getElementById("prev"),
+    botonPlayAudio: document.getElementById("PlayPause"),
+    botonNext: document.getElementById("next"),
+    contenido: document.getElementById("contenido"),
+    audioPlayer: document.getElementsByClassName("player")[0],
+    videoPlayer: document.getElementsByClassName("contenedorVideo")[0],
+    videoPagina: document.getElementById("tagVideo"),
+    botonPlayVideo: document.getElementById("iconoPausePlayVideo"),
+    tagAudio: document.getElementById("tagAudio"),
+    tagVideo: document.getElementById("tagVideo")
+}
+
 var canciones;
 strCanciones = '[{"imgSrc":"media/images/1.jpg","songName":"Cantina Rag", "audioSrc":"media/songs/Jackson F. Smith - Cantina Rag.mp3", "artistName":"Jackson F.Smith"},{"imgSrc":"media/images/2.jpg","songName":"BuckBreak", "audioSrc":"media/songs/Ken Hamm - Buckbreak.mp3", "artistName":"Ken Hamm"},{"imgSrc":"media/images/3.jpg","songName":"Little Grass Shack", "audioSrc":"media/songs/Voodoo Suite - Little Grass Shack.mp3", "artistName":"Voodoo Suite"}]';
 
@@ -8,38 +28,24 @@ videos = JSON.parse(strVideos);
 
 // función IIFE para cargar cosas desde el inicio de la página, al entrar cargamos las canciones por defecto
 (function () {
-    var linkAudio = document.getElementById("linkAudio");
-    var linkVideo = document.getElementById("linkVideo");
-    var botonRetr = document.getElementById("AtrasarVideo");
-    var botonAnterior = document.getElementById("VideoAnterior");
-    var botonPausa = document.getElementById("PausePlay");
-    var botonSiguiente = document.getElementById("VideoSiguiente");
-    var botonAdelantar = document.getElementById("AdelantarVideo");
-
-    //ricardo
-    var botonPrev = document.getElementById("prev");
-    var botonPlay = document.getElementById("PlayPause");
-    var botonNext = document.getElementById("next");
-
-    linkAudio.addEventListener('click', cambioAudio);
-    linkVideo.addEventListener('click', cambioVideo);
-    botonRetr.addEventListener('click', atrasaVideo)
-    botonAnterior.addEventListener('click', videoAnterior)
-    botonPausa.addEventListener('click', playPause);
-    botonSiguiente.addEventListener('click', videoSiguiente);
-    botonAdelantar.addEventListener('click', adelantaVideo);
+    DOM.linkAudio.addEventListener('click', cambioAudio);
+    DOM.linkVideo.addEventListener('click', cambioVideo);
+    DOM.botonRetr.addEventListener('click', atrasaVideo)
+    DOM.botonAnterior.addEventListener('click', videoAnterior)
+    DOM.botonPausa.addEventListener('click', playPause);
+    DOM.botonSiguiente.addEventListener('click', videoSiguiente);
+    DOM.botonAdelantar.addEventListener('click', adelantaVideo);
     //ricardo0
-    botonPrev.addEventListener('click', prev)
-    botonPlay.addEventListener('click', PlayPause);
-    botonNext.addEventListener('click', next);
+    DOM.botonPrev.addEventListener('click', prev)
+    DOM.botonPlayAudio.addEventListener('click', PlayPause);
+    DOM.botonNext.addEventListener('click', next);
 
     cambioAudio();
-    cambioVideo();
+    
 })();
 
 function cambioAudio() {
     vaciarUL();
-    var contenido = document.getElementById("contenido");
 
     canciones.forEach(function (cancion) {
 
@@ -55,7 +61,7 @@ function cambioAudio() {
         divTexto = document.createElement("div");
 
         //ponemos los distintos nodos hijos
-        contenido.appendChild(nuevoLi);
+        DOM.contenido.appendChild(nuevoLi);
         nuevoLi.appendChild(imagen);
         nuevoLi.appendChild(divTexto);
         divTexto.appendChild(titulo);
@@ -72,12 +78,17 @@ function cambioAudio() {
         //y ponemos el event listener para poner la canción
         nuevoLi.addEventListener('click', empezarReproduccionCancion);
     });
+    if (tagVideo.play) {
+        DOM.tagVideo.pause();
+        DOM.botonPlayVideo.classList.add("fa-play");
+        DOM.botonPlayVideo.classList.remove("fa-pause");
+    }
+    
     togglePlayers("audio");
 }
 
 function cambioVideo() {
     vaciarUL();
-    var contenido = document.getElementById("contenido");
 
     videos.forEach(function (video) {
 
@@ -93,7 +104,7 @@ function cambioVideo() {
         divTexto = document.createElement("div");
 
         //ponemos los distintos nodos hijos
-        contenido.appendChild(nuevoLi);
+        DOM.contenido.appendChild(nuevoLi);
         nuevoLi.appendChild(imagen);
         nuevoLi.appendChild(divTexto);
         divTexto.appendChild(titulo);
@@ -111,29 +122,30 @@ function cambioVideo() {
         nuevoLi.addEventListener('click', empezarReproduccionVideo);
 
     });
+    if (tagAudio.play) {
+        DOM.tagAudio.pause();
+        DOM.botonPlayAudio.classList.add("fa-play");
+        DOM.botonPlayAudio.classList.remove("fa-pause");
+    }
     togglePlayers("video");
 }
-function togglePlayers(option) {
-    var audioPlayer = document.getElementsByClassName("player")[0];
-    var videoPlayer = document.getElementsByClassName("contenedorVideo")[0];
 
+function togglePlayers(option) {
     if(option == "video") {
-        audioPlayer.style = "display: none";
-        videoPlayer.style = "";
+        DOM.audioPlayer.style = "display: none";
+        DOM.videoPlayer.style = "";
     }
     if(option == "audio") {
-        audioPlayer.style = "";
-        videoPlayer.style = "display: none";
+        DOM.audioPlayer.style = "";
+        DOM.videoPlayer.style = "display: none";
     }  
 }
 
 function vaciarUL() {
-    var contenido = document.getElementById("contenido");
-
-    var numHijos = contenido.childElementCount;
+    var numHijos = DOM.contenido.childElementCount;
 
     for (var iteraciones = 0; iteraciones < numHijos; iteraciones++) {
-        contenido.lastChild.remove();
+        DOM.contenido.lastChild.remove();
     }
 }
 function empezarReproduccionCancion(event) {
@@ -155,10 +167,14 @@ function empezarReproduccionCancion(event) {
     var nombreCancion = parent.getAttribute("name");
     var cancionJSON = canciones.filter(element => element.songName == nombreCancion);
     var srcCancion = cancionJSON[0].audioSrc;
-    var tagAudio = document.getElementById("tagAudio");
-    tagAudio.setAttribute("src", srcCancion);
+    var srcImagen = cancionJSON[0].imgSrc;
+    
+    DOM.tagAudio.setAttribute("src", srcCancion);
+    var tagImg = document.getElementById("imgCancion");
+    tagImg.setAttribute("src",srcImagen);
+    var tagTitulo = document.getElementById("title");
+    tagTitulo.innerHTML = nombreCancion;
 }
-
 
 function empezarReproduccionVideo(event) {
     //añadiríamos aquí dentro la función para poner la cancion
@@ -185,114 +201,83 @@ function empezarReproduccionVideo(event) {
 
 
 // Funciones de reproductor de vídeo
-var videoPagina = document.getElementById("tagVideo");
 
 function atrasaVideo() {
-    videoPagina.currentTime = videoPagina.currentTime - 5;
+    DOM.videoPagina.currentTime = DOM.videoPagina.currentTime - 5;
 }
 
 function playPause() {
-    if (videoPagina.paused) {
-        videoPagina.play();
-    }
-    else {
-        videoPagina.pause();
+    if(DOM.videoPagina.getAttribute("src") != "") {
+        if (DOM.videoPagina.paused) {
+            DOM.videoPagina.play();
+            DOM.botonPlayVideo.classList.toggle("fa-pause");
+            DOM.botonPlayVideo.classList.toggle("fa-play");
+        }
+        else {
+            DOM.videoPagina.pause();
+            DOM.botonPlayVideo.classList.toggle("fa-pause");
+            DOM.botonPlayVideo.classList.toggle("fa-play");
+        }
     }
 }
 
 function videoAnterior() {
-    var indexVideoActual = videos.findIndex(element => element.videoSrc == videoPagina.getAttribute("src"));
+    var indexVideoActual = videos.findIndex(element => element.videoSrc == DOM.videoPagina.getAttribute("src"));
 
     if (indexVideoActual != 0) {
-        videoPagina.src = videos[indexVideoActual - 1].videoSrc;
+        DOM.videoPagina.src = videos[indexVideoActual - 1].videoSrc;
     }
 }
 
 function videoSiguiente() {
-    var indexVideoActual = videos.findIndex(element => element.videoSrc == videoPagina.getAttribute("src"));
+    var indexVideoActual = videos.findIndex(element => element.videoSrc == DOM.videoPagina.getAttribute("src"));
 
     if (videos[indexVideoActual + 1] != undefined) {
-        videoPagina.setAttribute("src", videos[indexVideoActual + 1].videoSrc);
+        DOM.videoPagina.setAttribute("src", videos[indexVideoActual + 1].videoSrc);
     }
 }
 
 function adelantaVideo() {
-    videoPagina.currentTime = videoPagina.currentTime + 5;
+    DOM.videoPagina.currentTime = DOM.videoPagina.currentTime + 5;
 }
 
 //funciones de reproductor de audio
-var cancionesPagina = document.getElementById("tagAudio");
 
 function PlayPause() {
-    if (cancionesPagina.paused) {
-        cancionesPagina.play();
-        play.classList.remove("fa-pause")
-        play.classList.add("fa-play")
-    }
-    else {
-        cancionesPagina.pause();
-        play.classList.add("fa-pause")
-        play.classList.remove("fa-play")
-    }
+    if(DOM.tagAudio.getAttribute("src") != "") {
+        if (DOM.tagAudio.paused) {
+            DOM.tagAudio.play();
+            DOM.botonPlayAudio.classList.toggle("fa-pause");
+            DOM.botonPlayAudio.classList.toggle("fa-play");
+        }
+        else{
+            DOM.tagAudio.pause();
+            DOM.botonPlayAudio.classList.toggle("fa-pause");
+            DOM.botonPlayAudio.classList.toggle("fa-play");
+        }
+    }  
 }
 
 function prev() {
-    var indexCancionesActual = canciones.findIndex(element => element.audioSrc == cancionesPagina.getAttribute("src"));
-    console.log(indexCancionesActual);
+    var indexCancionesActual = canciones.findIndex(element => element.audioSrc == DOM.tagAudio.getAttribute("src"));
+    var tagImg = document.getElementById("imgCancion");
+    var tagTitulo = document.getElementById("title");
+    
     if (indexCancionesActual != 0) {
-        cancionesPagina.src = canciones[indexCancionesActual - 1].audioSrc;
+        DOM.tagAudio.setAttribute("src", canciones[indexCancionesActual - 1].audioSrc);
+        tagImg.setAttribute("src",canciones[indexCancionesActual - 1].imgSrc);
+        tagTitulo.innerHTML = canciones[indexCancionesActual - 1].songName;
     }
 }
 
 function next() {
-    var indexCancionesActual = canciones.findIndex(element => element.audioSrc == cancionesPagina.getAttribute("src"));
-    console.log(canciones);
-    console.log(indexCancionesActual);
+    var indexCancionesActual = canciones.findIndex(element => element.audioSrc == DOM.tagAudio.getAttribute("src"));
+    var tagImg = document.getElementById("imgCancion");
+    var tagTitulo = document.getElementById("title");
     if (canciones[indexCancionesActual + 1] != undefined) {
-        cancionesPagina.setAttribute("src", canciones[indexCancionesActual + 1].audioSrc);
+        DOM.tagAudio.setAttribute("src", canciones[indexCancionesActual + 1].audioSrc);
+        tagImg.setAttribute("src",canciones[indexCancionesActual + 1].imgSrc);
+        tagTitulo.innerHTML = canciones[indexCancionesActual + 1].songName;
+        
     }
-
 }
-
-
-
-// // Escuchar el elemento AUDIO
-// audio.addEventListener("timeupdate", updateProgress)
-
-// // Escuchar clicks en los controles
-// play.addEventListener("click", () => {
-//     if (audio.paused) {
-//         playSong()
-//     } else {
-//         pauseSong()
-//     }
-// })
-
-// next.addEventListener("click", () => nextSong())
-// prev.addEventListener("click", () => prevSong())
-// //
-
-
-// //actualizar controles
-// function updateControls() {
-//     if (audio.paused) {
-//         play.classList.remove("fa-pause")
-//         play.classList.add("fa-play")
-//     } else {
-//         play.classList.add("fa-pause")
-//         play.classList.remove("fa-play")
-//     }
-// }
-// // Reproducir canción
-// function playSong() {
-//     if (actualSong !== null) {
-//         audio.play()
-//         updateControls()
-//     }
-// }
-
-// // Pausar canción
-// function pauseSong() {
-//     audio.pause()
-//     updateControls()
-// }

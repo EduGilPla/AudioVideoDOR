@@ -18,22 +18,13 @@
         </div>  
     </header>
     <nav class="sidebar">
-        <main class="player">
-            <!-- titulo -->
-            <h1 class="title" id="title"> Prueba</h1>
-
-            <!-- img -->
-            <img src="" alt="" class="img" id="img">
-
-            <!-- audio -->
+        <div class="player">
+            <img src="" alt="" class="img" id="imgCancion">
+            <h1 class="title" id="title">Prueba</h1>
             <audio src="" id="tagAudio"></audio>
-
-            <!-- Progress bar -->
             <div id="barra-container" class="barra-container">
                 <section id="barra" class="barra"></section>
             </div>
-
-            <!-- Controles -->
             <section class="controls">
                 <button class="prev">
                     <i id="prev" class="fas fa-backward"></i>
@@ -45,9 +36,9 @@
                     <i id="next" class="fas fa-forward"></i>
                 </button>
             </section>
-        </main>
+        </div>
         <div class="contenedorVideo" style="display: none;">
-            <video src="media/videos/Ink - 67358.mp4" id="tagVideo" height="250"></video>
+            <video src="" id="tagVideo"></video>
             <section class="controlsVideo">
                 <button id="AtrasarVideo">
                     <i class="fas fa-undo"></i>
@@ -56,7 +47,7 @@
                     <i class="fas fa-backward"></i>
                 </button>
                 <button id="PausePlay">
-                    <i class="fas fa-play"></i>
+                    <i id="iconoPausePlayVideo" class="fas fa-play"></i>
                 </button>
                 <button id="VideoSiguiente">
                     <i class="fas fa-forward"></i>
