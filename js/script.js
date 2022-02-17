@@ -15,7 +15,10 @@ const DOM = {
     videoPagina: document.getElementById("tagVideo"),
     botonPlayVideo: document.getElementById("iconoPausePlayVideo"),
     tagAudio: document.getElementById("tagAudio"),
-    tagVideo: document.getElementById("tagVideo")
+    tagVideo: document.getElementById("tagVideo"),
+    optionSelectEnglish: document.getElementById("loadEnglish"),
+    optionSelectEspañol: document.getElementById("loadEspañol"),
+    opcionesSubtitulos: document.getElementById("opcionesSubtitulos")
 }
 
 var canciones;
@@ -23,11 +26,12 @@ strCanciones = '[{"imgSrc":"media/images/1.jpg","songName":"Cantina Rag", "audio
 
 canciones = JSON.parse(strCanciones);
 var videos;
-strVideos = '[{"imgSrc":"media/images/Ink.png","videoName":"Ink", "videoSrc":"media/videos/Ink - 67358.mp4", "artistName":"Pixabay","hasSubtitles":"no"},{"imgSrc":"media/images/Road.png","videoName":"Road", "videoSrc":"media/videos/Road - 84970.mp4", "artistName":"Pixabay","hasSubtitles":"no"},{"imgSrc":"media/images/Sea.png","videoName":"Sea", "videoSrc":"media/videos/Sea - 4006.mp4", "artistName":"Pixabay","hasSubtitles":"no"},{"imgSrc":"media/images/Ted.png","videoName":"Ted Talk", "videoSrc":"media/videos/Ted Talk.mp4", "artistName":"TED","hasSubtitles":"yes"}]';
+strVideos = '[{"imgSrc":"media/images/Ink.png","videoName":"Ink", "videoSrc":"media/videos/Ink - 67358.mp4", "artistName":"Pixabay","hasSubtitles":"no"},{"imgSrc":"media/images/Road.png","videoName":"Road", "videoSrc":"media/videos/Road - 84970.mp4", "artistName":"Pixabay","hasSubtitles":"no"},{"imgSrc":"media/images/Sea.png","videoName":"Sea", "videoSrc":"media/videos/Sea - 4006.mp4", "artistName":"Pixabay","hasSubtitles":"no"},{"imgSrc":"media/images/Ted.png","videoName":"Ted Talk", "videoSrc":"media/videos/Ted Talk.mp4", "artistName":"TED","hasSubtitles":"yes","subtitlesSrc":"media/captions/captionsTED.vtt"}]';
 videos = JSON.parse(strVideos);
 
 // función IIFE para cargar cosas desde el inicio de la página, al entrar cargamos las canciones por defecto
 (function () {
+    //Eduardo
     DOM.linkAudio.addEventListener('click', cambioAudio);
     DOM.linkVideo.addEventListener('click', cambioVideo);
     DOM.botonRetr.addEventListener('click', atrasaVideo)
@@ -35,15 +39,81 @@ videos = JSON.parse(strVideos);
     DOM.botonPausa.addEventListener('click', playPause);
     DOM.botonSiguiente.addEventListener('click', videoSiguiente);
     DOM.botonAdelantar.addEventListener('click', adelantaVideo);
-    //ricardo0
+    //ricardo
     DOM.botonPrev.addEventListener('click', prev)
     DOM.botonPlayAudio.addEventListener('click', PlayPause);
     DOM.botonNext.addEventListener('click', next);
 
+    DOM.opcionesSubtitulos.addEventListener('change', function (){
+        hideTracks();
+        track = document.createElement("track");
+        track.kind = "captions";
+        if(this.value == "en"){
+            track = DOM.tagVideo.addTextTrack("captions", "English", "en");
+            track.mode = "showing";
+            track.addCue(new VTTCue(0, 6.5, "English Subtitles"));
+            track.addCue(new VTTCue(8, 10, "[Applause]"));
+            track.addCue(new VTTCue(11, 14.2, "Wow. What an audience!"));
+            track.addCue(new VTTCue(14.5, 17.3, "But if I´m being honest, I don´t care what you think of my talk"));
+            track.addCue(new VTTCue(17.8, 21, "I don´t. I care what the internet thinks of my talk"));
+            track.addCue(new VTTCue(21.8, 26, "`Cause they´re the ones that get it seen, and get it shared. And I think that´s where most people get it wrong"));
+            track.addCue(new VTTCue(26.5, 33.5, "They´re talking to you, here, instead of talking to you...random person scrolling Facebook"));
+            track.addCue(new VTTCue(33.7, 35.6, "Thanks for the click"));
+            track.addCue(new VTTCue(35.8, 41, "You see, back in 2009 we all had these weird little things called attention spans"));
+            track.addCue(new VTTCue(41, 42, "[Laughter from the public]"));
+            track.addCue(new VTTCue(42.2, 45.8, "Yeah. They´re gone. They´re gone, we killed them. They´re dead"));
+            track.addCue(new VTTCue(46.3, 49.8, "I´m trying to think of the last time I watched an 18 minute TED talk"));
+            track.addCue(new VTTCue(50.2, 52.5, "It´s been years. Literally years"));
+            track.addCue(new VTTCue(52.8, 57.8, "So if you´re giving a TED talk, keep it quick. I´m doing mine in under a minute"));
+            track.addCue(new VTTCue(58, 61, "I´m at 44 seconds right now, that means we got time for one final joke"));
+            track.addCue(new VTTCue(61.3, 65, "Why are balloons so expensive? [Why?]"));
+            track.addCue(new VTTCue(65, 67, "Inflation"));
+            track.addCue(new VTTCue(67.5, 72, "[Laughs and applause]"));
+            track.srclang = this.value;
+            track.addEventListener("load",function() {
+                this.mode = "showing";
+            })
+            
+        }
+        if(this.value == "es"){
+            track = DOM.tagVideo.addTextTrack("captions", "Español", "es");
+            track.mode = "showing";
+            track.addCue(new VTTCue(0, 6.5, "Subtitulos en español"));
+            track.addCue(new VTTCue(8, 10, "[Aplausos]"));
+            track.addCue(new VTTCue(11, 14.2, "Guau. ¡Que gran público!"));
+            track.addCue(new VTTCue(14.5, 17.3, "Pero siendo sincero, no me importa lo que penséis de mi charla"));
+            track.addCue(new VTTCue(17.8, 21, "De verdad. Me importa lo que internet piense"));
+            track.addCue(new VTTCue(21.8, 26, "`Porque ellos son los que dan visitas, y la comparten. Y creo que ahí es donde mucha gente se equivoca"));
+            track.addCue(new VTTCue(26.5, 33.5, "Os hablan a vosotros, aquí, en vez de hablarte a ti...persona aleatoria mirando Facebook"));
+            track.addCue(new VTTCue(33.7, 35.6, "Gracias por el click"));
+            track.addCue(new VTTCue(35.8, 41, "Sabes, en 2009 teníamos esta pequeña cosa llamada capacidad de atención"));
+            track.addCue(new VTTCue(41, 42, "[Risas del público]"));
+            track.addCue(new VTTCue(42.2, 45.8, "Si. Se fue, voló, nosotros la matamos. Está muerta"));
+            track.addCue(new VTTCue(46.3, 49.8, "Estoy intentando recordar la última vez que vi una TED Talk de 18 minutos"));
+            track.addCue(new VTTCue(50.2, 52.5, "Hace años. Literalmente años"));
+            track.addCue(new VTTCue(52.8, 57.8, "Asi que si estás dando una TED Talk, hazlo rápido. La mía dura menos de un minuto"));
+            track.addCue(new VTTCue(58, 61, "Llevo 44 segundos, asi que nos queda tiempo para una broma final"));
+            track.addCue(new VTTCue(61.3, 65, "¿Por qué son tan caros los globos? [¿Por qué?]"));
+            track.addCue(new VTTCue(65, 67, "Por la inflación"));
+            track.addCue(new VTTCue(67.5, 72, "[Risas y aplausos]"));
+            track.srclang = this.value;
+            track.addEventListener("load",function() {
+                this.mode = "showing";
+            })
+            
+        }    
+        
+    })
+    
+
     cambioAudio();
     
 })();
-
+function hideTracks() {
+    for (i = 0; i < DOM.tagVideo.textTracks.length; i++) {
+        DOM.tagVideo.textTracks[i].mode = "hidden";
+    }
+}
 function cambioAudio() {
     vaciarUL();
 
@@ -197,6 +267,12 @@ function empezarReproduccionVideo(event) {
     var srcVideo = videoJSON[0].videoSrc;
     var tagVideo = document.getElementById("tagVideo");
     tagVideo.setAttribute("src", srcVideo);
+    if(videoJSON[0].hasSubtitles == "yes") {
+        DOM.opcionesSubtitulos.setAttribute("style","display:block");
+    }
+    else {
+        DOM.opcionesSubtitulos.setAttribute("style","display:none");
+    }
 }
 
 
