@@ -42,6 +42,8 @@ videos = JSON.parse(strVideos);
     DOM.botonPausa.addEventListener('click', playPause);
     DOM.botonSiguiente.addEventListener('click', videoSiguiente);
     DOM.botonAdelantar.addEventListener('click', adelantaVideo);
+    DOM.tagAudio.addEventListener('ended',resetBotonPlay);
+    DOM.tagVideo.addEventListener('ended',resetBotonPlay);
     //ricardo
     DOM.botonPrev.addEventListener('click', prev)
     DOM.botonPlayAudio.addEventListener('click', PlayPause);
@@ -290,7 +292,13 @@ function empezarReproduccionVideo(event) {
         DOM.opcionesSubtitulos.setAttribute("style","display:none");
     }
 }
+function resetBotonPlay() {
+        DOM.botonPlayAudio.classList.add("fa-play");
+        DOM.botonPlayAudio.classList.remove("fa-pause");
 
+        DOM.botonPlayVideo.classList.add("fa-play");
+        DOM.botonPlayVideo.classList.remove("fa-pause");
+}
 
 // Funciones de reproductor de vídeo
 
@@ -376,7 +384,7 @@ function PlayPause() {
             DOM.botonPlayAudio.classList.toggle("fa-pause");
             DOM.botonPlayAudio.classList.toggle("fa-play");
         }
-    }  
+    }
 }
 
 function prev() {
